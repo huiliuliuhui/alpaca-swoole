@@ -18,15 +18,22 @@ $providers = $app['providers'];
  */
 
 if (!empty($providers)){
+
     foreach ($providers as $provider){
+
         $instance = new $provider;
+
         $instance->register();
+
     }
 
 
     foreach ($providers as $provider){
+
         $instance = new $provider;
+
         $instance->boot();
+
     }
 }
 

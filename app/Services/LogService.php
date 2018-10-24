@@ -23,14 +23,17 @@ class LogService
         if (!empty($config)){
             $this->config = $config;
         }
+
         $this->logfile = new FileLog($this->config);
     }
 
 
     function log($msg){
+
         if (is_array($msg) || is_object($msg)){
             $msg = json_encode($msg,JSON_UNESCAPED_UNICODE);
         }
+
         if (!is_string($msg)) {
             throw new \Exception("日志消息不是字符串");
         }else{

@@ -16,6 +16,7 @@ class Container
      * @var array
      */
     static $building = [];//注册数组
+
     static $instances = [];//单例模式对象缓存
 
     /**
@@ -26,9 +27,11 @@ class Container
         if(is_null($concrete)){
             $concrete = $abstract;
         }
+
         if(!$concrete instanceOf \Closure){
             $concrete = self::getClosure($abstract, $concrete);
         }
+
         self::$building[$abstract] =  compact("concrete", "shared");
     }
 
@@ -39,7 +42,9 @@ class Container
      * @param bool $shared
      */
     static function singleton($abstract, $concrete, $shared = true){
+
         self::bind($abstract, $concrete, $shared);
+
     }
 
     /**
@@ -52,8 +57,11 @@ class Container
     static function getClosure($abstract, $concrete)
     {
         return function($c) use($abstract, $concrete){
+
             $method = ($abstract == $concrete)? 'build' : 'make';
+
             return $c::$method($concrete);
+
         };
     }
 
@@ -91,6 +99,7 @@ class Container
      * @return mixed
      */
     static function isShared($abstract){
+
         if (isset(self::$building[$abstract])){
             $ob = self::$building[$abstract];
             return $ob['shared'];
@@ -133,6 +142,7 @@ class Container
     static function build($concrete, $parameters)
     {
         if($concrete instanceof \Closure){
+
             if(empty($parameters)){
                 return $concrete(self::class);
             }elseif(is_array($parameters)){
@@ -140,6 +150,7 @@ class Container
             }elseif (is_string($parameters)){
                 return $concrete(self::class, $parameters);
             }
+
         }
 
         //创建反射对象
@@ -155,20 +166,22 @@ class Container
         }
 
         $constructor = $reflector->getConstructor();
+
         if(is_null($constructor)){
             return new $concrete;
         }
 
         $dependencies = $constructor->getParameters();
         $instance = self::getDependencies($dependencies);
-        return $reflector->newInstanceArgs($instance);
 
+        return $reflector->newInstanceArgs($instance);
     }
 
     //通过反射解决参数依赖
     static function getDependencies(array $dependencies)
     {
         $results = [];
+
         foreach( $dependencies as $dependency ){
             $results[] = is_null($dependency->getClass())
                 ?self::resolvedNonClass($dependency)
@@ -189,6 +202,7 @@ class Container
         if($parameter->isDefaultValueAvailable()){
             return $parameter->getDefaultValue();
         }
+
         throw new \Exception('出错');
 
     }
