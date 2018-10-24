@@ -55,6 +55,11 @@ class PhpExcelEngine
      }
 
 
+    /***
+     * 缓存数据，暂时不给予导出，待后处理
+     * @param $data
+     * @param int $debug
+     */
      public function cacheData($data, $debug = 0){
          foreach ($data as $k1 => $items){
              if ($k1 > 0)$this->now_row +=  $this->max_row_span;
@@ -206,24 +211,6 @@ class PhpExcelEngine
     }
 
 
-    /**
-     *
-     * @param $col
-     * @param $row
-     * @return bool|string
-     */
-    public function getSite2($col, $row){
-        $word = ["A", "B", "C", "D", "E", "F", "G", "H","I", "J","K", "L","M","N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-        if ($col < 0) return false;
-        if ($col >=0 && $col <= 25){
-            return $word[$col] . $row;
-        }else{
-            $mod = floor($col/26);
-            $first = $mod > 1 ? $mod-1 : 0;
-            $second = $col%26;
-            return $word[$first] . $word[$second]. $row;
-        }
-    }
 
     /**
      *

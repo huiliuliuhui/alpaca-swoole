@@ -3,8 +3,8 @@ define('DEBUG', 'on');
 define('WEBPATH', __DIR__.'/webroot');
 define('ROOT_PATH', __DIR__);
 
-error_reporting(E_ALL);
-ini_set("display_errors","on");
+error_reporting(0);
+ini_set("display_errors","off");
 
 /**
  * /vendor/autoload.php是Composer工具生成的
@@ -23,12 +23,6 @@ require __DIR__.'/autoload.php';
 require __DIR__ . '/kernel/Bootstrap/BootStrap.php';
 
 
-
-/**
- *  关闭错误提示
- */
-ini_set("display_errors", "On");
-error_reporting(E_ALL^E_WARNING^E_NOTICE);
 
 /**
  * Swoole框架自动载入器初始化
