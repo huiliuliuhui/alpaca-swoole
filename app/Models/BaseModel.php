@@ -47,13 +47,10 @@ class BaseModel
 
         $configService = App::make("Config");
         $appConfig = $configService->getConfig();
-        $config = $appConfig['webim'];
-        $this->config = $config;
         $this->redis = App::make("redis");
         $this->log = App::make("Log");
 
-
-        $mysql_config = $config['mysql'];
+        $mysql_config = $appConfig['mysql'];
         $this->class = get_class($this);
         $model = $this->class;
         if (!isset(self::$links[$model])) {

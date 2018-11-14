@@ -13,7 +13,7 @@ class Server extends Swoole\Protocol\CometServer
     {
         parent::__construct($config);
 
-        //检测日志目录是否存在
+        //检测webim_log日志目录是否存在
         $this->checkLoger($config);
 
         //注册发送消息方法到容器

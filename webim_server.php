@@ -1,11 +1,18 @@
 <?php
-define('DEBUG', 'on');
+define('DEBUG', 'off');
 define('WEBPATH', __DIR__.'/webroot');
 define('ROOT_PATH', __DIR__);
 define('DEBUG_CLI', false);//日志消息输出形式，false-输出到日志文件， true-输出到控制台
 
-error_reporting(0);
-ini_set("display_errors","off");
+
+if (DEBUG == "on"){
+    error_reporting(E_ALL);
+    ini_set("display_errors","on");
+} else{
+    error_reporting(0);
+    ini_set("display_errors","off");
+}
+
 
 /**
  * /vendor/autoload.php是Composer工具生成的

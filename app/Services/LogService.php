@@ -31,6 +31,9 @@ class LogService
      */
     private  function writeLog($level, $msg)
     {
+        if (is_array($msg) || is_object($msg)){
+            $msg = json_encode($msg, JSON_UNESCAPED_UNICODE);
+        }
         $date = date('Y-m-d H:i:s', time());
 //        $msg = sprintf('%s|%s|%s|%s', $date, $this->getTraceId(), $level, $msg) . PHP_EOL;//时间|traceId|日志级别|日志信息
         $msg = sprintf('%s|%s|%s', $date, $level, $msg) . PHP_EOL;//时间|日志级别|日志信息
