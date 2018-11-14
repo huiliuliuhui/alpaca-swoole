@@ -2,6 +2,7 @@
 define('DEBUG', 'on');
 define('WEBPATH', __DIR__.'/webroot');
 define('ROOT_PATH', __DIR__);
+define('DEBUG_CLI', false);//日志消息输出形式，false-输出到日志文件， true-输出到控制台
 
 error_reporting(0);
 ini_set("display_errors","off");

@@ -203,7 +203,7 @@ class Container
             return $parameter->getDefaultValue();
         }
 
-        throw new \Exception('出错');
+        throw new \Exception('依赖类型解析出错');
 
     }
 

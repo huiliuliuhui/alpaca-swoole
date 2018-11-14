@@ -49,6 +49,7 @@ if(strpos($host,"dev")!==false){
     ];
 
 }elseif(strpos($host,"vagrant_data") !== false){
+    //本地
     $config['mysql'] = [
         'driver'       => "pdo",
         'type'       => "mysql",
@@ -62,7 +63,7 @@ if(strpos($host,"dev")!==false){
 
 
 } else{
-    //生成环境
+    //生产环境
     $config['mysql'] = [
         'driver'       => "pdo",
         'type'       => "mysql",

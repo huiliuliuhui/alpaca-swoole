@@ -15,9 +15,7 @@ class UserController extends Controller
     function index(){
         $model = new UserModel();
         $users = $model->getConnection()->find();
-
-        $this->log->log($users);
-        $this->log->log($this->data);
+        $this->log->debug(json_encode($this->data));
         App::make("sendMessage", [$this, $this->data['client_id'], json_encode($this->data)]);
     }
 

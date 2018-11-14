@@ -8,6 +8,7 @@
 
 namespace App\Providers;
 
+use App\Services\LogService;
 use Kernel\Provider\ServiceProvider;
 
 
@@ -15,7 +16,18 @@ class LogServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->singleton("Log",\App\Services\LogService::class);
+
+    }
+
+    public function boot()
+    {
+        $this->singleton("Log",function(){
+            $configService = $this->make("Config");
+            $config = $configService->getConfig();
+            $log = $config['mylog'];
+            return new LogService($log);
+        });
+
     }
 
 }

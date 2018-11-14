@@ -39,7 +39,7 @@ class Loader
     private static function includeFile($file)
     {
         if (is_file($file)) {
-            include $file;
+            include_once $file;
         }
     }
 
