@@ -36,8 +36,10 @@ class RouterService
         }
 
         $api_model = new $class_name();
-        $api_model->data = $data;
-        $api_model->serv = $serv;
+        $api_model->data = $data;//数据
+        $api_model->serv = $serv;//swoole实例对象
+        $api_model->memeory = memory_get_usage();//当前内存使用情况
+        $api_model->time_old = microtime(true);//路由起始时间
         if(!empty($api_model)){
             if(method_exists($api_model, $cmd)){
                 $return = $api_model->$cmd();

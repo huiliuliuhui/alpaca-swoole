@@ -73,6 +73,8 @@ class Server extends Swoole\Protocol\CometServer
      */
     function onMessage($client_id, $ws)
     {
+
+
         $this->log("onMessage #$client_id: " . $ws['message']);
         $message = json_decode($ws['message'], true);
 
