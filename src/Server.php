@@ -13,13 +13,20 @@ class Server extends Swoole\Protocol\CometServer
     {
         parent::__construct($config);
 
+
         //检测webim_log日志目录是否存在
+
+
         $this->checkLoger($config);
+        echo "检查文件是否存在" . PHP_EOL;
+
 
         //注册发送消息方法到容器
+        echo "注册发送消息方法到容器" . PHP_EOL;
         $this->registerSendMessage();
 
         //注册redis单例到容器
+        echo "注册redis单例到容器" . PHP_EOL;
         $this->registerRedis();
 
     }
@@ -39,6 +46,7 @@ class Server extends Swoole\Protocol\CometServer
      */
     function onStart($serv, $worker_id = 0)
     {
+        echo "{$worker_id}worker进程启动"   . PHP_EOL;
         parent::onStart($serv, $worker_id);
     }
 

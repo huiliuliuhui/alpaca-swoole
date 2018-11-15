@@ -1,0 +1,110 @@
+﻿//编写日期2018-11-15
+
+1，下载virtualbox 5.2.16版本  https://www.virtualbox.org/
+2，下载vagrant最新版  http://www.vagrantup.com/
+3，下载要使用的box版本，这里选择centos7，下载到e:/box/ 文件夹里面   http://www.vagrantbox.es/  https://app.vagrantup.com/boxes/search（这里有两种下载方式，a，通过先创建vagrant配置文件，执行vagrant up自动下载；b，先用迅雷下载[推荐]）
+4，在本地建立一个文件夹，比如e:/demo
+5，打开cmd，进入到e:/demo
+6，执行命令vagrant box add centos7 e:/box/centos7.box   命令解释：vagrant box add server_name box_path
+7，执行命令vagrant box list查看已经添加的系统box镜像
+8，执行命令vagrant init centos7，初始化centos7这个box
+9，vagrant up 启动（这里会有坑，报错vagrant /sbin/mount.vboxsf: mounting failed with the error: No such device，原因是该box系统的linux内核不支持VBoxLinuxAdditions和vertualbox，建议更换box镜像重新初始化）
+10，执行vagrant ssh进入到linux系统
+12，执行sudo yum update 更新yum源
+13，执行sudo yum install dkms binutils gcc make patch libgomp glibc-headers glibc-devel kernel-headers
+14，执行sudo yum install kernel-devel
+15，执行sudo yum install kernel-pae-devel
+16，退出系统，改Vagrantfile配置文件，config.vm.synced_folder "../data", "/vagrant_data"，挂载目录，前面一个地址是硬盘实际目录，二面一个是centos的目录
+17，执行vagrant reload，重新加载配置文件，提示mount成功
+18，配置xshell登录：vagrant ssh登录服务器，
+sudo vi sshd_config
+把PasswordAuthentication 的值改为yes
+保存退出
+重启ssh  systemctl restart sshd.service  
+xshell 127.0.0.1:2222  user:vagrant   password:vagrant登录
+19,修改vagrant配置文件，配置同步映射目录，配置宿主机客户机映射端口（参考文件见Vagrantfile）
+
+环境需要：php7，swoole拓展，yaf拓展，redis，mysql，ngnix
+
+安装php(lnmp一键安装包)
+sudo wget http://soft.vpser.net/lnmp/lnmp1.5.tar.gz -cO lnmp1.5.tar.gz && sudo tar zxf lnmp1.5.tar.gz && cd lnmp1.5 && sudo ./install.sh lnmp
+
+安装swoole
+cd /tmp
+wget https://github.com/swoole/swoole-src.git
+cd swoole-src
+sudo ./configure --with-php-config=/usr/local/php/bin/php-config
+sudo make & sudo make install
+
+vi /usr/local/php/etc/php.ini
+最后一行加 extension=swoole.so
+
+重启php-fpm sudo ./etc/init.d/php-fpm restart
+
+
+
+cd /tmp
+vi info.php
+<?php echo phpinfo();
+
+php info.php   查看是否有swoole
+
+
+安装yaf
+wget http://pecl.php.net/get/yaf-3.0.7.tgz  
+tar -zxvf yaf-3.0.7.tgz && cd yaf-3.0.7
+sudo ./configure --with-php-config=/usr/local/php/bin/php-config 
+sudo make
+sudo make install
+
+
+vi /usr/local/php/etc/php.ini
+最后一行加 
+[yaf]
+extension=yaf.so
+extension=redis.so
+yaf.environ="local"
+yaf.use_namespace = on
+yaf.library = "/vagrant_data/decision/libraries"
+
+
+
+
+安装redis拓展
+
+wget http://download.redis.io/releases/redis-4.0.2.tar.gz
+tar xzf redis-4.0.2.tar.gz
+cd redis-4.0.2
+/usr/local/php/bin/phpize
+sudo make && sudo make install
+
+vi /usr/local/php/etc/php.ini
+最后一行加 
+
+extension=redis.so
+
+重启php-fpm
+
+配置nginx，修改decision配置文件，eztalk配置文件
+
+
+
+vagrant常用命令
+$ vagrant init      # 初始化
+
+$ vagrant up        # 启动虚拟机
+$ vagrant halt      # 关闭虚拟机
+$ vagrant reload    # 重启虚拟机
+$ vagrant ssh       # SSH 至虚拟机
+$ vagrant suspend   # 挂起虚拟机
+$ vagrant resume    # 唤醒虚拟机
+$ vagrant status    # 查看虚拟机运行状态
+$ vagrant destroy   # 销毁当前虚拟机
+
+#box管理命令
+$ vagrant box list    # 查看本地box列表
+$ vagrant box add     # 添加box到列表
+
+$ vagrant box remove  # 从box列表移除 
+
+vagrant package --output lnmp.box 打包
