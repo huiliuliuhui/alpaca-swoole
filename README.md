@@ -1,6 +1,6 @@
 ## 简介
 
-本框架是一个免费开源的，快速、简单的面向对象的轻量级基于swoole-framework的webim开发框架，在swoole实例的基础上简单地封装了一层容器，实现了依赖注入和控制反转，并将swoole对象反注入到容器中，可以在自己编写的应用程序中简单快速地访问swoole对象。
+本框架是一个免费开源的，快速、简单的面向对象的轻量级基于swoole-framework的webim开发框架，在swoole实例的基础上封装了一层简单的容器，实现了依赖注入和控制反转，并将swoole对象反注入到容器中，可以在自己编写的应用程序中简单快速地访问swoole对象。
 
 该框架可以简单快速地构建基于swoole的webim服务器。
 
@@ -159,7 +159,7 @@ php webim_server.php start
 
   jmeter配置：ip:127.0.0.1, port:4092, protocol:ws, message: {"cmd" : "index", "mod", "user", "data":{"demo":"hello webim"}}
 
-- 查看输出日志
+- 查看输出日志，查看jmeter接收到的消息
 
 - 启动运行过程中有疑问可以联系我
 
