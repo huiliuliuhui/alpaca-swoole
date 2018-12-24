@@ -1,5 +1,5 @@
 <?php
-define('DEBUG', 'off');
+define('DEBUG', 'on');
 define('WEBPATH', __DIR__.'/webroot');
 define('ROOT_PATH', __DIR__);
 define('DEBUG_CLI', false);//日志消息输出形式，false-输出到日志文件， true-输出到控制台
@@ -19,16 +19,6 @@ if (DEBUG == "on"){
  * shell: composer update
  */
 require __DIR__.'/vendor/autoload.php';
-
-/**
- * 引入工程项目自动加载器
- */
-require __DIR__.'/autoload.php';
-
-/**
- * 引入服务注册引导文件
- */
-require __DIR__ . '/kernel/Bootstrap/BootStrap.php';
 
 
 

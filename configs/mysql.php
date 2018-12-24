@@ -18,7 +18,7 @@ $envs = [
         'charset'    => "utf8",
     ],
 
-    'Test' => [
+    'test' => [
         'driver'       => "pdo",
         'type'       => "mysql",
         'hostname'       => "127.0.0.1",
@@ -29,38 +29,22 @@ $envs = [
         'charset'    => "utf8",
     ],
 
-    'vagrant_data' => [
+    'local' => [
         'driver'       => "pdo",
         'type'       => "mysql",
         'hostname'       => "127.0.0.1",
         'hostport'       => 3306,
         'username'       => "root",
         'password'     => "123456",
-        'database'       => "kz_decision",
+        'database'       => "demo",
         'charset'    => "utf8",
     ],
 
-    'default' => [
-        'driver'       => "pdo",
-        'type'       => "mysql",
-        'hostname'       => "127.0.0.1",
-        'hostport'       => 3306,
-        'username'       => "root",
-        'password'     => "123456",
-        'database'       => "kz_decision",
-        'charset'    => "utf8",
-    ]
 
 ];
 
-$project_path = \Swoole::getInstance()->config->config_path[0];
+$env = getenv('webim_env');
 
-foreach ($envs as $env => $cg){
-    if (strpos($project_path,$env) !== false || $env == "default"){
-        $config = $cg;
-        break;
-    }
-}
-
+$config = $envs[$env];
 
 return $config;

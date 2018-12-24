@@ -12,7 +12,7 @@ $envs = [
        ],
     ],
 
-    'Test' => [
+    'test' => [
         'master' => [
             'host' => 'xxx',
             'port' => "xxx",
@@ -20,34 +20,20 @@ $envs = [
         ],
     ],
 
-    'vagrant_data' => [
+    'local' => [
         'master' =>[
             //我机器的本地环境
-            'host' => '127.0.0.1',
-            'port' => 6379,
+            'host' => 'xx',
+            'port' => 00,
             'select'=>0
             ]
     ],
 
-    'default' => [
-        'master' => [
-            'host' => 'xxx',
-            'port' => "xxx",
-            'select'=>0
-        ],
-    ]
-
 ];
 
-$project_path = \Swoole::getInstance()->config->config_path[0];
+$env = getenv('webim_env');
 
-foreach ($envs as $env => $cg){
-    if (strpos($project_path,$env) !== false || $env == "default"){
-        $config = $cg;
-        break;
-    }
-}
-
+$config = $envs[$env];
 
 return $config;
 

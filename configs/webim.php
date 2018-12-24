@@ -19,9 +19,9 @@ $config = [
      */
     'swoole' => [
         'log_file'        => ROOT_PATH . '/log/swoole.log',
-        'worker_num'      => 4,//worker线程数量，一般设为cpu核数的1-2倍
+        'worker_num'      => 2,//worker线程数量，一般设为cpu核数的1-2倍
         'max_request'     => 0, //0-表示不会重启worker，不要修改这里，因为webim服务是有状态的服务
-        'task_worker_num' => 16,//task线程数量
+        'task_worker_num' => 0,//task线程数量
         'daemonize'       => 0,//是否要作为守护进程
     ],
 

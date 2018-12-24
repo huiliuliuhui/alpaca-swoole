@@ -24,6 +24,7 @@ class ComposerStaticInita5da154d4c548e4c87215671491bf468
         'P' => 
         array (
             'Psr\\Log\\' => 8,
+            'Predis\\' => 7,
         ),
     );
 
@@ -47,6 +48,10 @@ class ComposerStaticInita5da154d4c548e4c87215671491bf468
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'Predis\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/predis/predis/src',
         ),
     );
 

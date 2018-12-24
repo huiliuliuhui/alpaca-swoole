@@ -32,7 +32,7 @@ class Controller
     }
 
     /**
-     *
+     * 运行时间和内存使用监控
      */
     function setWatchLog(){
         $runtime    = number_format(microtime(true) - $this->time_old, 10);

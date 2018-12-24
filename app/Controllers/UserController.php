@@ -9,13 +9,17 @@
 namespace App\Controllers;
 use App\Models\UserModel;
 use Kernel\App;
+use Predis\Client;
 
 class UserController extends Controller
 {
     function index(){
         $model = new UserModel();
 //        $users = $model->getConnection()->find();
-        $this->log->info($this->data);
+        $client = new Client();
+        $client->set('aa', 'xxx');
+        $value = $client->get('aa');
+        $this->log->info($value);
         $this->setWatchLog();
         App::make("sendMessage", [$this, $this->data['client_id'], json_encode($this->data)]);
     }
