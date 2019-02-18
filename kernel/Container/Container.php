@@ -137,7 +137,7 @@ class Container
      * @param $concrete
      * @param $parameters
      * @return mixed|object
-     * @throws \ReflectionException
+     * @throws \Exception
      */
     static function build($concrete, $parameters)
     {
@@ -146,7 +146,7 @@ class Container
             if(empty($parameters)){
                 return $concrete(self::class);
             }elseif(is_array($parameters)){
-                return call_user_func_array($concrete, $parameters);
+                return call_user_func($concrete, $parameters);
             }elseif (is_string($parameters)){
                 return $concrete(self::class, $parameters);
             }
